@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsAPI</string>
+    <string name="hint">Enter a Headline</string>
+    <string name="search_button">Search</string>
 </resources>

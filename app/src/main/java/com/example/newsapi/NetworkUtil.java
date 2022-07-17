@@ -22,6 +22,10 @@ public class NetworkUtil {
 
     private static final String QUERY_PARAM = "q";
 
+    /**
+     * @param queryString create API call using URI and correct param from API Documentation then create connection
+     * @return
+     */
     static String getHeadlineInfo(String queryString){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;

@@ -1,5 +1,6 @@
 package com.example.newsapi;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
     public static String TAG = RecyclerAdapter.class.getSimpleName();
-    String[] titles;
+    List<HeadlineModel> mData;
+    Context context;
 
-    public RecyclerAdapter(String[] mTitles){
-        titles = mTitles;
+    public RecyclerAdapter(Context context, List<HeadlineModel> mData){
+        this.context = context;
+        this.mData = mData;
+
     }
 
+    /**
+     *
+     * Rows are being created
+     */
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,27 +37,40 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         return new RecyclerViewHolder(row);
     }
 
+    /**
+     * Data is being put into each row
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        holder.headlineTextView.setText(titles[position]);
+        HeadlineModel headlineModel = mData.get(position);
+        holder.headlineTextView.setText(headlineModel.getHeadlineText());
+        holder.descriptionTextView.setText(headlineModel.getDescText());
         holder.headlineTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),titles[holder.getAdapterPosition()], Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"You clicked on " + mData.get(holder.getAdapterPosition()).getHeadlineText(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * @return  get the total count to see if more rows need to be created
+     */
     @Override
     public int getItemCount() {
-        return titles.length;
+        return mData.size();
     }
 
+    /**
+     * declare what views are going to be used for each row
+     */
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView headlineTextView;
+        TextView descriptionTextView;
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            headlineTextView = itemView.findViewById(R.id.title_row);
+            headlineTextView = itemView.findViewById(R.id.hTitle);
+            descriptionTextView = itemView.findViewById(R.id.hDescription);
         }
     }
 }

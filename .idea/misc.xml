@@ -5,6 +5,12 @@
       <map>
         <entry key="..\:/Users/959061/AndroidStudioProjects/NewsAPI/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
         <entry key="..\:/Users/959061/AndroidStudioProjects/NewsAPI/app/src/main/res/layout/article_row.xml" value="0.1078125" />
+        <entry key="..\:/Users/dtera/AndroidStudioProjects/NewsAPI/app/src/main/res/layout-es/activity_main.xml" value="0.32864583333333336" />
+        <entry key="..\:/Users/dtera/AndroidStudioProjects/NewsAPI/app/src/main/res/layout-land/activity_main.xml" value="0.27821869488536155" />
+        <entry key="..\:/Users/dtera/AndroidStudioProjects/NewsAPI/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.246484375" />
+        <entry key="..\:/Users/dtera/AndroidStudioProjects/NewsAPI/app/src/main/res/layout/activity_main.xml" value="0.32864583333333336" />
+        <entry key="..\:/Users/dtera/AndroidStudioProjects/NewsAPI/app/src/main/res/layout/article_row.xml" value="0.32971014492753625" />
+        <entry key="..\:/Users/dtera/AndroidStudioProjects/NewsAPI/app/src/main/res/layout/avtivity_main_h.xml" value="0.32864583333333336" />
       </map>
     </option>
   </component>
