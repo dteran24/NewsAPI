@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NewsAPI</string>
+    <string name="hint">Introducir un título</string>
+    <string name="search_button">Buscar</string>
+</resources>
