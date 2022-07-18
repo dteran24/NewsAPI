@@ -1,5 +1,6 @@
 package com.example.newsapi;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.headlineTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setPositiveButton("OK", null);
+                alertDialogBuilder.setTitle(mData.get(holder.getAdapterPosition()).getHeadlineText());
+                alertDialogBuilder.setMessage(mData.get(holder.getAdapterPosition()).getDescText());
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
                 Toast.makeText(context,"You clicked on " + mData.get(holder.getAdapterPosition()).getHeadlineText(), Toast.LENGTH_SHORT).show();
             }
         });
