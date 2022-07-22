@@ -55,7 +55,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                 alertDialogBuilder.setMessage(mData.get(holder.getAdapterPosition()).getDescText());
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-                Toast.makeText(context,"You clicked on " + mData.get(holder.getAdapterPosition()).getHeadlineText(), Toast.LENGTH_SHORT).show();
             }
         });
     }

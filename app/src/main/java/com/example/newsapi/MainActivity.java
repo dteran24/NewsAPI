@@ -5,14 +5,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.newsapi.roomdb.AppDatabase;
+import com.example.newsapi.roomdb.AppExecutors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,11 +29,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private static String TAG = MainActivity.class.getSimpleName();
     EditText mHeadlineInput;
     TextView infoText;
     RecyclerView recyclerView;
     List<HeadlineModel> headlineList;
+    AppDatabase db;
+    Button nxtButton;
 
 
     /**
@@ -45,7 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
         infoText = findViewById(R.id.textView);
 
+        nxtButton = findViewById(R.id.button2);
+
         headlineList = new ArrayList<>();
+
+        db = AppDatabase.getInstance(getApplicationContext());
     }
 
 
@@ -53,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
      * Obtain string from user input and use FetchHeadline method to start API call
      */
     public void getHeadLine(View view) {
+        nxtButton.setVisibility(Button.VISIBLE);
         String queryString = mHeadlineInput.getText().toString();
 
         InputMethodManager inputManager = (InputMethodManager)                                      //When user searches, hide keyboard
@@ -81,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
                 infoText.setText("No internet!");
             }
         }
+    }
+
+    public void nextActivity(View view) {
+        Intent intent = new Intent(this, roomDBRecyclerActivity.class);
+        startActivity(intent);
     }
 
     public class FetchHeadline extends AsyncTask<String,Void,String> {
@@ -116,8 +134,23 @@ public class MainActivity extends AppCompatActivity {
                     model.setHeadlineText(article.getString("title"));
                     model.setDescText(article.getString("description"));
                     headlineList.add(model);
+/**
+ * From AppExecutors we use run method and HeadlineDao to add json data into our database
+ */
+                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+
+                                db.headlineDao().insertHeadline(model); //we use dao to insert into db
+                                Log.i(TAG, "the data inserted to db -- "+model);
+                        }
+
+                            });
+                        }
+
+
                 }
-            } catch (JSONException e) {
+             catch (JSONException e) {
                 e.printStackTrace();
             }
             PutDataIntoRecyclerView(headlineList);
